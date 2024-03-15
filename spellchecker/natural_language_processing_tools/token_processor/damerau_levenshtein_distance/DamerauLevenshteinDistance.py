@@ -1,8 +1,21 @@
 class DamerauLevenshteinDistance:
-    def __init__(self, max_distance=4):
-        self.max_distance = max_distance
+    def __init__(self, min_distance=0.5):
+        self.min_distance = min_distance
 
-    def calculate_distance_between_words(self, string_1: str, string_2: str) -> int:
+    def calculate_normalized_levenshtein_distance(self, string_1: str, string_2: str) -> float:
+        distance = self.calculate_distance_between_words(string_1, string_2)
+
+        max_string_length = max(len(string_1), len(string_2))
+
+        normalized_distance = float(max_string_length - distance) / float(max_string_length)
+
+        if normalized_distance < self.min_distance:
+            return -1
+
+        return normalized_distance
+
+    @staticmethod
+    def calculate_distance_between_words(string_1: str, string_2: str) -> int:
         # Create an array of size (N+1) x (M+1), where N and M are the lengths of the strings
         matrix = {}
         n = len(string_1)
@@ -40,4 +53,4 @@ class DamerauLevenshteinDistance:
         distance = matrix[(n - 1, m - 1)]
 
         # Return the value of the bottom right cell, which is the edit distance
-        return distance if distance < self.max_distance else -1
+        return distance

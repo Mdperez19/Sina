@@ -1,9 +1,9 @@
+from spellchecker.natural_language_processing_tools.token_processor.damerau_levenshtein_distance.DamerauLevenshteinDistance import \
+    DamerauLevenshteinDistance
 from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker import SearchSpaceEnum
 from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker.SearchSpaceEnum import \
     SearchSpaceEnum
 from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker.Spellcheker import Spellchecker
-from spellchecker.natural_language_processing_tools.token_processor.damerau_levenshtein_distance.DamerauLevenshteinDistance import \
-    DamerauLevenshteinDistance
 from spellchecker.entity.Dictionary import Dictionary
 from spellchecker.response_entities.Correction import Correction
 from spellchecker.response_entities.PossibleCorrections import PossibleCorrections
@@ -21,12 +21,20 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
     def spellcheck_sentences_tokens(self, normalized_sentences_tokens: list) -> list:
         letters_collection = self.database.get_collection_from_database()
         possible_corrections_for_sentences = []
+
+        correct_words = set()
+        wrong_words = set()
+
         for tokens_by_sentence in normalized_sentences_tokens:
             possible_corrections_by_sentence = []
+
             for token in tokens_by_sentence:
                 if len(token) == 1:
                     continue
                 else:
+                    if token in correct_words or token in wrong_words:
+                        continue
+
                     search_space = self.get_search_space_for_token(token)
                     possible_corrections_for_token = self.look_for_token_in_database(
                         token,
@@ -35,6 +43,10 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
                     )
                     if possible_corrections_for_token:
                         possible_corrections = PossibleCorrections(token, possible_corrections_for_token).to_dict()
+                        if not possible_corrections:
+                            correct_words.add(token)
+                        else:
+                            wrong_words.add(token)
                         possible_corrections_by_sentence.append(possible_corrections)
             possible_corrections_for_sentences.append(possible_corrections_by_sentence)
         return possible_corrections_for_sentences
@@ -61,8 +73,13 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
 
             else:
                 for word in words:
-                    distance_between_words = self.damerau_levenshtein_distance.calculate_distance_between_words(token,
-                                                                                                                word)
+                    distance_between_words = (self.damerau_levenshtein_distance
+                                                  .calculate_normalized_levenshtein_distance(
+                                                    token,
+                                                    word
+                                                  )
+                                             )
+
                     if distance_between_words != -1:
                         correction = Correction(word, distance_between_words).to_dict()
                         possible_corrections.append(correction)

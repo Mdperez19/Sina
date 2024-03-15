@@ -2,7 +2,7 @@ class Correction:
     distance: int
     word: str
 
-    def __init__(self, word: str, distance: int) -> None:
+    def __init__(self, word: str, distance: float) -> None:
         self.word = word
         self.distance = distance
 
