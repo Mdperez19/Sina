@@ -29,13 +29,3 @@ class SearchSpaceEnum(Enum):
     X = ['x', 'z', 's', 'd', 'c', 'k', 'j', 'h', 'y']
     Y = ['y', 't', 'u', 'g', 'h', 'j', 'l', 'i', 'v', 'x']
     Z = ['z', 'a', 's', 'x', 'c']
-
-if __name__ == '__main__':
-    # Ejemplo de uso:
-    char = 'n'
-    enum_member = SearchSpaceEnum[char.upper()]
-    if enum_member:
-        print(enum_member)  # Esto imprimirá el enum correspondiente a 'A'
-        print(enum_member.value)  # Esto imprimirá la lista de valores de 'A'
-    else:
-        print(f"No se encontró ninguna enum que contenga el caracter '{char}'")

@@ -1,6 +1,6 @@
-from spellchecker.natural_language_processing_tools.text_preprocessing.tokenizer.SentenceTokenizer import \
+from spellchecker.natural_language_processing_tools.text_preprocessing.tokenizer.sentence.SentenceTokenizer import \
     SentenceTokenizer
-from spellchecker.natural_language_processing_tools.text_preprocessing.tokenizer.WordTokenizer import WordTokenizer
+from spellchecker.natural_language_processing_tools.text_preprocessing.tokenizer.word.WordTokenizer import WordTokenizer
 from spellchecker.natural_language_processing_tools.text_preprocessing.normalizer.Normalizer import Normalizer
 from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker.Spellcheker import Spellchecker
 from spellchecker.response_entities.SpellcheckerResponse import SpellcheckerResponse
