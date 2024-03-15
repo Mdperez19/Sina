@@ -19,7 +19,7 @@ damerau_levenshtein_distance = DamerauLevenshteinDistance()
 spellchecker = SpellcheckerDamerauLevensteinDistance(dictionary, damerau_levenshtein_distance)
 
 
-@spellchecker_api.route(methods=['POST'])
+@spellchecker_api.route('', methods=['POST'])
 def spellcheck() -> tuple[Response, int]:
     if request.is_json:
         data = request.get_json()
