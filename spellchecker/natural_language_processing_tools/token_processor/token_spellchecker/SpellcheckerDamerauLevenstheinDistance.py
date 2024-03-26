@@ -51,11 +51,21 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
             possible_corrections_for_sentences.append(possible_corrections_by_sentence)
         return possible_corrections_for_sentences
 
-    @staticmethod
-    def get_search_space_for_token(token: str) -> list:
-        first_letter_of_token = token[0]
+    def get_search_space_for_token(self, token: str) -> list:
+        first_letter_of_token = self.get_first_letter_of_token(token)
+        print("Token: ", token, "First letter: ", first_letter_of_token)
         search_space_for_token = SearchSpaceEnum[first_letter_of_token.upper()].value
         return search_space_for_token
+
+    @staticmethod
+    def get_first_letter_of_token(token: str) -> str:
+        accented_letters = {'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u'}
+        first_letter = token[0]
+
+        if first_letter in accented_letters:
+            return f"{accented_letters[first_letter]}_acc"
+        else:
+            return first_letter
 
     def look_for_token_in_database(self, token: str, search_space: list,
                                    letters_collection: pymongo.collection) -> list:
