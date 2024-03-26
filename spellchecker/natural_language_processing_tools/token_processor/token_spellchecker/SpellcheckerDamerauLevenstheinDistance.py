@@ -53,7 +53,6 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
 
     def get_search_space_for_token(self, token: str) -> list:
         first_letter_of_token = self.get_first_letter_of_token(token)
-        print("Token: ", token, "First letter: ", first_letter_of_token)
         search_space_for_token = SearchSpaceEnum[first_letter_of_token.upper()].value
         return search_space_for_token
 
