@@ -7,6 +7,7 @@ from spellchecker.natural_language_processing_tools.token_processor.token_spellc
 from spellchecker.entity.Dictionary import Dictionary
 from spellchecker.response_entities.Correction import Correction
 from spellchecker.response_entities.PossibleCorrections import PossibleCorrections
+import bisect
 import pymongo
 
 
@@ -77,17 +78,21 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
 
             words = document["words"]
 
-            if token in words:
-                break
+            index_of_token = bisect.bisect_left(words, token)
 
+            is_index_within_bounds = index_of_token < len(words)
+            is_token_in_words = words[index_of_token] == token
+
+            if is_index_within_bounds and is_token_in_words:
+                break
             else:
                 for word in words:
                     distance_between_words = (self.damerau_levenshtein_distance
-                                                  .calculate_normalized_levenshtein_distance(
-                                                    token,
-                                                    word
-                                                  )
-                                             )
+                    .calculate_normalized_levenshtein_distance(
+                        token,
+                        word
+                    )
+                    )
 
                     if distance_between_words != -1:
                         correction = Correction(word, distance_between_words).to_dict()
