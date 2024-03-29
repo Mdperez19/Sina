@@ -3,7 +3,7 @@ from spellchecker.natural_language_processing_tools.token_processor.damerau_leve
 from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker import SearchSpaceEnum
 from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker.SearchSpaceEnum import \
     SearchSpaceEnum
-from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker.Spellcheker import Spellchecker
+from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker.Spellchecker import Spellchecker
 from spellchecker.entity.Dictionary import Dictionary
 from spellchecker.response_entities.Correction import Correction
 from spellchecker.response_entities.PossibleCorrections import PossibleCorrections
