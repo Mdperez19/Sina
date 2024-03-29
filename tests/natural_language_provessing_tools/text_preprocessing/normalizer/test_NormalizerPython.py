@@ -8,11 +8,10 @@ class TestNormalizerPython:
     def normalizer(self):
         return NormalizerPython()
 
-    #TODO: fix this test
     @pytest.mark.NormalizerPython
     def test_normalize_sentences_tokens(self,normalizer):
         #Given
-        tokens = ["¿Cómo estás&?","Bien, gracias"]
+        tokens = [["¿Cómo", "estás&?"],["Bien", "gracias"]]
         expected_normalized_tokens = [["cómo","estás"],["bien","gracias"]]
         #When
         normalized_tokens = normalizer.normalize_sentences_tokens(tokens)
