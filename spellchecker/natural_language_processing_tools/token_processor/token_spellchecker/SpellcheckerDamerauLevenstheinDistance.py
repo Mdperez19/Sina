@@ -19,7 +19,7 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
 
         self.database.connect_to_database()
 
-    def spellcheck_sentences_tokens(self, normalized_sentences_tokens: list) -> list:
+    def spellcheck_sentences_tokens(self, normalized_sentences_tokens: list[list[str]]) -> list:
         letters_collection = self.database.get_collection_from_database()
         possible_corrections_for_sentences = []
 
