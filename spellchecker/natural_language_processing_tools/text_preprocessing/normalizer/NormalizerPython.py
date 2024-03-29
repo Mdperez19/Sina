@@ -5,7 +5,9 @@ class NormalizerPython(Normalizer):
     def __init__(self):
         pass
 
-    def normalize_sentences_tokens(self, sentences_tokens: list) -> list:
+    def normalize_sentences_tokens(self,
+                                   sentences_tokens: list[list[str]]
+                                   ) -> list[list[str]]:
         normalized_sentences_tokens = []
         for tokens_by_sentence in sentences_tokens:
             normalized_tokens_by_sentence = []
