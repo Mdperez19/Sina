@@ -7,7 +7,7 @@ class TestCorrection:
 
     @pytest.fixture
     def correction(self):
-        return Correction("princesa", 0.5)
+        return Correction("princesa", 0.875)
 
     @pytest.mark.Correction
     def test_to_dict(self, correction):
@@ -18,4 +18,4 @@ class TestCorrection:
         # Then
         assert isinstance(result, dict)
         assert result["word"]=="princesa"
-        assert result["distance"]==0.5
+        assert result["distance"]==0.875

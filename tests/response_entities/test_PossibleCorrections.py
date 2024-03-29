@@ -9,7 +9,7 @@ class TestPossibleCorrections:
     def possible_corrections(self):
         return PossibleCorrections("pricesa",
                                    [
-                                       {'word': 'princesa', 'distance': 0.9},
+                                       {'word': 'princesa', 'distance': 0.875},
                                        {'word': 'princesita', 'distance': 0.5}
                                    ])
 
@@ -22,7 +22,7 @@ class TestPossibleCorrections:
         assert isinstance(result, dict)
         assert result["token"] == "pricesa"
         assert result["corrections"] == [
-                                       {'word': 'princesa', 'distance': 0.9},
+                                       {'word': 'princesa', 'distance': 0.875},
                                        {'word': 'princesita', 'distance': 0.5}
                                    ]
         assert isinstance(result["corrections"], list)
