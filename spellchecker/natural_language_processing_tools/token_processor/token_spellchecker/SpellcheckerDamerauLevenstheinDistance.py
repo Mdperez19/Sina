@@ -81,9 +81,8 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
             index_of_token = bisect.bisect_left(words, token)
 
             is_index_within_bounds = index_of_token < len(words)
-            is_token_in_words = words[index_of_token] == token
 
-            if is_index_within_bounds and is_token_in_words:
+            if is_index_within_bounds and words[index_of_token] == token:
                 break
             else:
                 for word in words:
