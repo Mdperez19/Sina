@@ -3,7 +3,7 @@ from spellchecker.natural_language_processing_tools.token_processor.damerau_leve
 from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker import SearchSpaceEnum
 from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker.SearchSpaceEnum import \
     SearchSpaceEnum
-from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker.Spellcheker import Spellchecker
+from spellchecker.natural_language_processing_tools.token_processor.token_spellchecker.Spellchecker import Spellchecker
 from spellchecker.entity.Dictionary import Dictionary
 from spellchecker.response_entities.Correction import Correction
 from spellchecker.response_entities.PossibleCorrections import PossibleCorrections
@@ -19,7 +19,7 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
 
         self.database.connect_to_database()
 
-    def spellcheck_sentences_tokens(self, normalized_sentences_tokens: list) -> list:
+    def spellcheck_sentences_tokens(self, normalized_sentences_tokens: list[list[str]]) -> list:
         letters_collection = self.database.get_collection_from_database()
         possible_corrections_for_sentences = []
 
