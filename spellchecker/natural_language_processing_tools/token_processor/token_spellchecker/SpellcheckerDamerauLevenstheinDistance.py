@@ -16,7 +16,6 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
 
         self.database = database
         self.damerau_levenshtein_distance = damerau_levenshtein_distance
-
         self.database.connect_to_database()
 
     def spellcheck_sentences_tokens(self, normalized_sentences_tokens: list[list[str]]) -> list:
@@ -71,30 +70,33 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
                                    letters_collection: pymongo.collection) -> list:
         possible_corrections = []
         for letter in search_space:
-            document = letters_collection.find_one({'letter': letter})
-
-            if document is None:
-                continue
-
-            words = document["words"]
-
+            words = self.get_words_from_database(letter, letters_collection)
             index_of_token = bisect.bisect_left(words, token)
-
             is_index_within_bounds = index_of_token < len(words)
-
             if is_index_within_bounds and words[index_of_token] == token:
                 break
             else:
-                for word in words:
-                    distance_between_words = (self.damerau_levenshtein_distance
-                    .calculate_normalized_levenshtein_distance(
-                        token,
-                        word
-                    )
-                    )
+                corrections = self.calculate_distance_between_words(token, words)
+                possible_corrections.extend(corrections)
+        return possible_corrections
 
-                    if distance_between_words != -1:
-                        correction = Correction(word, distance_between_words).to_dict()
-                        possible_corrections.append(correction)
+    @staticmethod
+    def get_words_from_database(letter: str, letters_collection: pymongo.collection) -> list:
+        document = letters_collection.find_one({'letter': letter})
+        if document is None:
+            return []
+        return document["words"]
 
+    def calculate_distance_between_words(self, token: str, words: list) -> list:
+        possible_corrections = []
+        for word in words:
+            distance_between_words = self.damerau_levenshtein_distance \
+                                            .calculate_normalized_levenshtein_distance(
+                                                token,
+                                                word
+                                            )
+
+            if distance_between_words != -1:
+                correction = Correction(word, distance_between_words).to_dict()
+                possible_corrections.append(correction)
         return possible_corrections
