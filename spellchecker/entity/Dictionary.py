@@ -5,9 +5,6 @@ import os
 
 class Dictionary:
     def __init__(self):
-        if os.path.exists('.env'):
-            load_dotenv()
-
         self.connection_string = os.environ.get("COSMOS_CONNECTION_STRING")
         self.db_name = os.environ.get("DB_NAME")
         self.collection_name = os.environ.get("COLLECTION_NAME")
