@@ -1,3 +1,6 @@
+import os
+
+from dotenv import load_dotenv
 from flask import Blueprint, jsonify, request, Response
 
 from .entity.Dictionary import Dictionary
@@ -10,6 +13,9 @@ from .spellchecker_service import SpellcheckerService
 from http import HTTPStatus
 
 spellchecker_api = Blueprint('spellchecker_api', __name__)
+
+if os.path.exists('.env'):
+    load_dotenv('.env')
 
 sentence_tokenizer = SentenceTokenizerNltk()
 word_tokenizer = WordTokenizerNltk()
