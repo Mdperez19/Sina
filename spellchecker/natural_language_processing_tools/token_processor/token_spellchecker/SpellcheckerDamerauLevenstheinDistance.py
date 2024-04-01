@@ -24,9 +24,9 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
                                     ) -> list:
         letters_collection = self.database.get_collection_from_database()
         possible_corrections_for_sentences = self.collect_possible_corrections_by_sentence(
-                                                                normalized_sentences_tokens,
-                                                                letters_collection
-                                                            )
+            normalized_sentences_tokens,
+            letters_collection
+        )
         return possible_corrections_for_sentences
 
     def collect_possible_corrections_by_sentence(self,
@@ -88,7 +88,7 @@ class SpellcheckerDamerauLevensteinDistance(Spellchecker):
             return first_letter
 
     def look_for_token_in_database(self, token: str, search_space: list,
-                                   letters_collection: pymongo.collection) -> list:
+                                   letters_collection: pymongo.collection) -> list[dict]:
         possible_corrections = []
         for letter in search_space:
             document = letters_collection.find_one({'letter': letter})
