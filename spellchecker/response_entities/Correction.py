@@ -1,5 +1,5 @@
 class Correction:
-    distance: int
+    distance: float
     word: str
 
     def __init__(self, word: str, distance: float) -> None:

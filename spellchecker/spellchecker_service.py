@@ -21,7 +21,7 @@ class SpellcheckerService:
 
         return spell_checker_results
 
-    def preprocess_text(self, text) -> tuple[list, list]:
+    def preprocess_text(self, text: str) -> tuple[list, list]:
         tokenized_sentences = self.sentence_tokenizer.tokenize_text_by_sentence(text)
         sentences_tokens = self.word_tokenizer.tokenize_sentence_by_words(tokenized_sentences)
         normalized_sentences_tokens = self.normalizer.normalize_sentences_tokens(sentences_tokens)
@@ -29,7 +29,7 @@ class SpellcheckerService:
         return normalized_sentences_tokens, tokenized_sentences
 
     @staticmethod
-    def format_result(possible_corrections, tokenized_sentences):
+    def format_result(possible_corrections: list, tokenized_sentences: list) -> list:
         formatted_results = [SpellcheckerResponse(original_sentence, corrections).to_dict() for
                              original_sentence, corrections in zip(tokenized_sentences, possible_corrections) if
                              corrections]

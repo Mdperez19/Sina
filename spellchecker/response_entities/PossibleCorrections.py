@@ -3,10 +3,10 @@ from typing import List
 
 
 class PossibleCorrections:
-    corrections: List[Correction]
+    corrections: List[dict]
     token: str
 
-    def __init__(self, token: str, corrections: List[Correction]) -> None:
+    def __init__(self, token: str, corrections: List[dict]) -> None:
         self.token = token
         self.corrections = corrections
 
