@@ -1,12 +1,11 @@
-from .PossibleCorrections import PossibleCorrections
 from typing import List
 
 
 class SpellcheckerResponse:
     original_sentence: str
-    possible_corrections: List[PossibleCorrections]
+    possible_corrections: List[dict]
 
-    def __init__(self, original_sentence: str, possible_corrections: List[PossibleCorrections]) -> None:
+    def __init__(self, original_sentence: str, possible_corrections: List[dict]) -> None:
         self.original_sentence = original_sentence
         self.possible_corrections = possible_corrections
 
