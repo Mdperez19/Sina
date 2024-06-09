@@ -16,6 +16,8 @@ class NormalizerPython(Normalizer):
                     continue
                 else:
                     normalized_token = self.build_normalized_token(token)
+                    if len(normalized_token) == 0:
+                        continue
                     normalized_tokens_by_sentence.append(normalized_token)
             normalized_sentences_tokens.append(normalized_tokens_by_sentence)
 
